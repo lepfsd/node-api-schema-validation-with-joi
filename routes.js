@@ -1,6 +1,10 @@
 const express = require('express')
 const router = express.Router()
 
+const SchemaValidator = require('./middlewares/SchemaValidator')
+
+const validateRequest = SchemaValidator(true)
+
 //generic router handler
 
 const genericHandler = (req, res, next) => {
@@ -11,12 +15,12 @@ const genericHandler = (req, res, next) => {
 }
 
 // create a new teacher or student
-router.post('/people', genericHandler)
+router.post('/people', validateRequest, genericHandler)
 
-router.post('/auth/edit', genericHandler)
+router.post('/auth/edit', validateRequest, genericHandler)
 
 // accept fee payments for students
-router.post('/fees/pay', genericHandler)
+router.post('/fees/pay', validateRequest, genericHandler)
 
 router.get('/', genericHandler)
 
